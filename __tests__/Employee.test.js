@@ -1,5 +1,5 @@
-const { describe } = require("yargs");
-const Employee = require("../lib/employee");
-// const Letter = require("../lib/Letter");
+const inquirer = require('inquirer');
+const employee = require('../lib/employee');
+// const Letter = require('../lib/Letter');
 
-describe("Employee class",)
+describe('Employee class',)
