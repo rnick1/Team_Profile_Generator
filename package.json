@@ -1,0 +1,22 @@
+{
+  "name": "team_profile_generator",
+  "version": "1.0.0",
+  "description": "The Team Profile Generator is designed to allow a manager to create simple team member profiles that can be useful for admin, planning, or for any other purpose that requires a detailed list of team member profiles.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rnick1/Team_Profile_Generator.git"
+  },
+  "author": "Nick Rider",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rnick1/Team_Profile_Generator/issues"
+  },
+  "homepage": "https://github.com/rnick1/Team_Profile_Generator#readme"
+}
