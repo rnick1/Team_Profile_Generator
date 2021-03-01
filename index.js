@@ -7,6 +7,36 @@ const employee = require('./lib/employee');
 const employeeQuestions = () =>
     inquirer.prompt([
         {
+            type: 'list',
+            name: 'worker type',
+            message: 'Please select worker type',
+            choices: [
+                {
+                    name: 'Employee',
+                },
+                {
+                    name: 'Manager',
+                },
+                {
+                    name: 'Engineer',
+                },
+                {
+                    name: 'Intern',
+                },
+            ],
+            validate: function (answer) {
+                if (answer.length == 0) {
+                    return 'Please make at least one selection.';
+                }
+                return true;
+            },
+            typeSpecified: function (answer) {
+                if (answer === 'Employee') {
+
+                }
+            }
+        },
+        {
             type: 'input',
             name: 'employeeName',
             message: 'Please enter the employee\'s name.',
