@@ -1,41 +1,11 @@
 const inquirer = require('inquirer');
 const Employee = require('./lib/employee');
-const Engineer = require('../lib/engineer');
-const Manager = require('../lib/manager');
-const Intern = require('../lib/intern');
+const Engineer = require('./lib/engineer');
+const Manager = require('./lib/manager');
+const Intern = require('./lib/intern');
 
 const employeeQuestions = () =>
     inquirer.prompt([
-        {
-            type: 'list',
-            name: 'worker type',
-            message: 'Please select worker type',
-            choices: [
-                {
-                    name: 'Employee',
-                },
-                {
-                    name: 'Manager',
-                },
-                {
-                    name: 'Engineer',
-                },
-                {
-                    name: 'Intern',
-                },
-            ],
-            validate: function (answer) {
-                if (answer.length == 0) {
-                    return 'Please make at least one selection.';
-                }
-                return true;
-            },
-            typeSpecified: function (answer) {
-                if (answer === 'Employee') {
-
-                }
-            }
-        },
         {
             type: 'input',
             name: 'employeeName',
@@ -68,7 +38,75 @@ const employeeQuestions = () =>
                 }
                 return true;
             },
-        }]),
+
+        },
+        {
+            type: 'list',
+            name: 'employeeType',
+            message: 'Please select employee type',
+            choices: ['Manager', 'Engineer', 'Intern']
+
+        }]).then((response) => {
+            if (response.employeeType === 'Manager') {
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'employeeEmail',
+                        message: 'Please enter the employee\'s email address',
+                        validate: function (text) {
+                            if (text.length == 0) {
+                                return 'Please enter the employee\'s email address';
+                            }
+                            return true;
+                        }
+
+
+                    }]).then((managerResponse) => {
+                        // Could generate html, but must create manager obj 
+                        const manager = new Manager(response.employeeName);
+                    })
+            }
+
+
+        })
+
+
+// Could generate cards 
+
+
+
+
+// Define functions: Manager, engineer, and intern 
+// Ask: Manager - officeNumber
+// Ask: Engineer - Github username
+// Ask: Intern - School
+// function chooseType() {
+//     inquirer.prompt(employeeType).then(answers) => {
+//         if (answers.employee - type === Manager) {
+//             {
+//                 type: 'input',
+//                     name: 'officeNumber',
+//                         message: 'Please enter the manager\'s office number',
+//                             validate: function (text) {
+//                                 if (text.length == 0) {
+//                                     return 'Please enter the employee\'s email address';
+//                                 }
+//                                 return true;
+//                             },
+
+//             },
+//         }
+//     }
+// }
+
+// validate: function (answer) {
+//     if (answer.length == 0) {
+//         return 'Please make at least one selection.';
+//     }
+//     return true;
+// },
+//         },
+//     ]),
 
 const generateHTML = (answers) =>
     `<!DOCTYPE html>
@@ -96,16 +134,19 @@ const generateHTML = (answers) =>
       </html>`;
 
 const init = () => {
-    employeeQuestions().then((answers) => {
-        try {
-            const html = generateHTML(answers);
-            fs.writeFileSync('index.html', html);
-            console.log('Successfully wrote to index.html');
-        } catch (error) {
-            console.log(error);
-        }
-    });
-};
+    employeeQuestions()
+}
+
+// ((answers) => {
+//         try {
+//             // const html = generateHTML(answers);
+//             // fs.writeFileSync('index.html', html);
+//             console.log('Successfully wrote to index.html');
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     });
+// };
 
 init();
 

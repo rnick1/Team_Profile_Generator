@@ -4,8 +4,7 @@ describe("Employee", () => {
     test("should create an employee object", () => {
         const employee = new Employee('John', '3', 'john@fakemail.com');
 
-        expect(employee.name).toEqual(expect.any(String));
-        expect(employee.name).toEqual('John')
+        expect(employee instanceof Employee).toEqual(true);
     })
 
     test("getName method collects the employee's name from the user.", () => {
