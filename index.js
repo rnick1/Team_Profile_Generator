@@ -71,15 +71,11 @@ const employeeQuestions = () =>
         })
 
 
-// Could generate cards 
-
-
-
-
 // Define functions: Manager, engineer, and intern 
 // Ask: Manager - officeNumber
 // Ask: Engineer - Github username
 // Ask: Intern - School
+
 // function chooseType() {
 //     inquirer.prompt(employeeType).then(answers) => {
 //         if (answers.employee - type === Manager) {
@@ -149,13 +145,3 @@ const init = () => {
 // };
 
 init();
-
-// LA Suggestions:
-// 1. Ask what type they want to add (in our case, we only care about interns.
-// 2. Ask general employee information.
-// 3. Ask intern specific question.
-// 4. Build an intern object with this information.
-// 5. Save the intern object
-// 6. display the intern object’s data in the html
-
-// Each of these steps are a function you can write.
