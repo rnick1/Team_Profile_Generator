@@ -14,14 +14,14 @@ describe("Employee", () => {
         expect(employee.name).toEqual('John')
     })
 
-    test("getID method collects the employee's name from the user.", () => {
+    test("getID method collects the employee's ID from the user.", () => {
         const employee = new Employee('John', '3', 'john@fakemail.com');
 
         expect(employee.id).toEqual(expect.any(String))
         expect(employee.id).toEqual('3')
     })
 
-    test("getEmail method collects the employee's name from the user.", () => {
+    test("getEmail method collects the employee's email from the user.", () => {
         const employee = new Employee('John', '3', 'john@fakemail.com');
 
         expect(employee.email).toEqual(expect.any(String))
