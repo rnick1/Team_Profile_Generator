@@ -2,7 +2,6 @@ const Intern = require("../lib/intern");
 const Employee = require('../lib/employee');
 
 describe("Intern", () => {
-    // Add instanceof test
     test("getName method collects the intern's name from the user.", () => {
         const intern = new Intern('John', '3', 'john@fakemail.com', 'UW');
 
