@@ -51,20 +51,46 @@ const employeeQuestions = () =>
                 inquirer.prompt([
                     {
                         type: 'input',
-                        name: 'employeeEmail',
-                        message: 'Please enter the employee\'s email address',
+                        name: 'officeNumber',
+                        message: 'Please enter the manager\'s office number',
                         validate: function (text) {
                             if (text.length == 0) {
-                                return 'Please enter the employee\'s email address';
+                                return 'Please enter the manager\'s office number';
                             }
                             return true;
                         }
-
 
                     }]).then((managerResponse) => {
                         // Could generate html, but must create manager obj 
                         const manager = new Manager(response.employeeName);
                     })
+
+            } else if (response.employeeType === 'Engineer') {
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'gitHubUserName',
+                        message: 'Please enter the engineer\'s GitHub username.',
+                        validate: function (text) {
+                            if (text.length == 0) {
+                                return 'Please enter the engineer\'s GitHub username.';
+                            }
+                            return true;
+                        }
+                    }])
+            } else if (response.employeeType === 'Intern') {
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        name: 'school',
+                        message: 'Please enter the intern\'s school.',
+                        validate: function (text) {
+                            if (text.length == 0) {
+                                return 'Please enter the intern\'s school.';
+                            }
+                            return true;
+                        }
+                    }])
             }
 
 
