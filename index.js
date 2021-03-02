@@ -60,8 +60,10 @@ const employeeQuestions = () =>
                             return true;
                         }
 
-                    }])
-
+                    }]).then((managerResponse) => {
+                        const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, response.officeNumber);
+                        teamArray.push(manager)
+                    })
 
             } else if (response.employeeType === 'Engineer') {
                 inquirer.prompt([
@@ -75,7 +77,11 @@ const employeeQuestions = () =>
                             }
                             return true;
                         }
-                    }])
+                    }]).then((engineerResponse) => {
+                        const engineer = new Engineer(response.employeeName, response.employeeID, response.employeeEmail, response.github);
+                        teamArray.push(engineer)
+                    })
+
             } else if (response.employeeType === 'Intern') {
                 inquirer.prompt([
                     {
@@ -88,9 +94,12 @@ const employeeQuestions = () =>
                             }
                             return true;
                         }
-                    }])
+                    }]).then((internResponse) => {
+                        const intern = new Intern(response.employeeName, response.employeeID, response.employeeEmail, response.school);
+                        teamArray.push(intern)
+                    })
             }
-
+            let teamArray = [''];
 
         })
 
@@ -133,10 +142,5 @@ const init = () => {
 //         }
 //     });
 // };
-
-// .then((managerResponse) => {
-//     const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, response.officeNumber);
-
-// })
 
 init();
