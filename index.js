@@ -60,10 +60,8 @@ const employeeQuestions = () =>
                             return true;
                         }
 
-                    }]).then((managerResponse) => {
-                        // Could generate html, but must create manager obj 
-                        const manager = new Manager(response.employeeName);
-                    })
+                    }])
+
 
             } else if (response.employeeType === 'Engineer') {
                 inquirer.prompt([
@@ -95,40 +93,6 @@ const employeeQuestions = () =>
 
 
         })
-
-
-// Define functions: Manager, engineer, and intern 
-// Ask: Manager - officeNumber
-// Ask: Engineer - Github username
-// Ask: Intern - School
-
-// function chooseType() {
-//     inquirer.prompt(employeeType).then(answers) => {
-//         if (answers.employee - type === Manager) {
-//             {
-//                 type: 'input',
-//                     name: 'officeNumber',
-//                         message: 'Please enter the manager\'s office number',
-//                             validate: function (text) {
-//                                 if (text.length == 0) {
-//                                     return 'Please enter the employee\'s email address';
-//                                 }
-//                                 return true;
-//                             },
-
-//             },
-//         }
-//     }
-// }
-
-// validate: function (answer) {
-//     if (answer.length == 0) {
-//         return 'Please make at least one selection.';
-//     }
-//     return true;
-// },
-//         },
-//     ]),
 
 const generateHTML = (answers) =>
     `<!DOCTYPE html>
@@ -169,5 +133,10 @@ const init = () => {
 //         }
 //     });
 // };
+
+// .then((managerResponse) => {
+//     const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, response.officeNumber);
+
+// })
 
 init();
