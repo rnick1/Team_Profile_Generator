@@ -100,7 +100,6 @@ const employeeQuestions = () =>
                     })
             }
             let teamArray = [''];
-
         })
 
 const generateHTML = (answers) =>
