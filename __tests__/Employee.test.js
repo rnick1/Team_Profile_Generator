@@ -29,4 +29,3 @@ describe("Employee", () => {
         expect(employee.email).toEqual('john@fakemail.com')
     })
 })
-

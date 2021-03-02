@@ -1,17 +1,8 @@
 const inquirer = require('inquirer');
-const employee = require('./lib/employee');
-// const engineer = require('../lib/engineer');
-// const manager = require('../lib/manager');
-// const intern = require('../lib/intern');
-
-// 1. Ask what type they want to add (in our case, we only care about interns.
-// 2. Ask general employee information.
-// 3. Ask intern specific question.
-// 4. Build an intern object with this information.
-// 5. Save the intern object
-// 6. display the intern object’s data in the html
-
-// Each of these steps are a function you can write.
+const Employee = require('./lib/employee');
+const Engineer = require('../lib/engineer');
+const Manager = require('../lib/manager');
+const Intern = require('../lib/intern');
 
 const employeeQuestions = () =>
     inquirer.prompt([
@@ -95,6 +86,9 @@ const generateHTML = (answers) =>
           <ul class="list-group">
             <li class="list-group-item">${answers.employeeID}</li>
             <li class="list-group-item">${answers.employeeEmail}</li>
+            <li class="list-group-item">${answers.github}</li>
+            <li class="list-group-item">${answers.school}</li>
+            <li class="list-group-item">${answers.officeNumber}</li>
           </ul>
         </div>
       </div>
@@ -114,3 +108,13 @@ const init = () => {
 };
 
 init();
+
+// LA Suggestions:
+// 1. Ask what type they want to add (in our case, we only care about interns.
+// 2. Ask general employee information.
+// 3. Ask intern specific question.
+// 4. Build an intern object with this information.
+// 5. Save the intern object
+// 6. display the intern object’s data in the html
+
+// Each of these steps are a function you can write.
