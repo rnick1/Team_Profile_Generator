@@ -46,7 +46,7 @@ const employeeQuestions = () =>
             message: 'Please select employee type',
             choices: ['Manager', 'Engineer', 'Intern']
 
-        }.then((response) => {
+        }]).then((response) => {
             if (response.employeeType === 'Manager') {
                 inquirer.prompt([
                     {
@@ -102,20 +102,18 @@ const employeeQuestions = () =>
 
             let teamArray = [''];
         })
-        {
-            type: 'list',
-            name: 'continue?',
-            message: 'Would you like to add any more employees?',
-            choices: ['Yes', 'No']
-        }]).then((response) => {
-            if (response === true) {
-                // Run this set of questions again
-            } else if (response === false) {
-                // End the questions and generate the HTML
-            }
-        }
-        
-        })
+inquirer.prompt([{
+    type: 'list',
+    name: 'continue?',
+    message: 'Would you like to add any more employees?',
+    choices: ['Yes', 'No']
+}]).then((response) => {
+    if (response === true) {
+        employeeQuestions()
+    } else if (response === false) {
+        return
+    }
+})
 
 const generateHTML = (answers) =>
     `<!DOCTYPE html>
