@@ -101,23 +101,34 @@ const employeeQuestions = () =>
                         teamArray.push(intern)
                     })
             }
-        }).then(() => {
-            inquirer.prompt([{
-                type: 'list',
-                name: 'should_continue',
-                message: 'Would you like to add any more employees?',
-                choices: ['Yes', 'No']
-            }]).then((should_continue) => {
-                if (should_continue === 'Yes') {
-                    employeeCard()
-                    employeeQuestions()
-                    // generateHTML()
-                } else if (should_continue === 'No') {
-                    employeeCard()
-                    generateHTML()
-                }
-            })
+        }).then((answer) => {
+            if (answer.should_continue === 'Yes') {
+                employeeCard()
+                employeeQuestions()
+                // generateHTML()
+            } else if (answer.should_continue === 'No') {
+                employeeCard()
+                generateHTML()
+            }
         })
+
+// .then(() => {
+//     inquirer.prompt([{
+//         type: 'list',
+//         name: 'should_continue',
+//         message: 'Would you like to add any more employees?',
+//         choices: ['Yes', 'No']
+//     }]).then((should_continue) => {
+//         if (should_continue === 'Yes') {
+//             employeeCard()
+//             employeeQuestions()
+//             // generateHTML()
+//         } else if (should_continue === 'No') {
+//             employeeCard()
+//             generateHTML()
+//         }
+//     })
+// })
 
 function employeeCard(employee) {
     return `    
