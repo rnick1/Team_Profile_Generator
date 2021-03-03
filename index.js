@@ -104,15 +104,15 @@ const employeeQuestions = () =>
         }).then(() => {
             inquirer.prompt([{
                 type: 'list',
-                name: 'continue?',
+                name: 'should_continue',
                 message: 'Would you like to add any more employees?',
                 choices: ['Yes', 'No']
-            }]).then((response) => {
-                if (response === 'Yes') {
+            }]).then((should_continue) => {
+                if (should_continue === 'Yes') {
                     employeeCard()
                     employeeQuestions()
                     // generateHTML()
-                } else if (response === 'No') {
+                } else if (should_continue === 'No') {
                     employeeCard()
                     generateHTML()
                 }
