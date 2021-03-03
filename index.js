@@ -115,7 +115,8 @@ const employeeQuestions = () =>
                 } else if (answer.should_continue === 'No') {
                     console.log(teamArray);
                     for (var i = 0; i < teamArray.length; i++) {
-                        employeeCard();
+                        employeeCard(employee);
+                        console.log(employee);
                     }
                 }
             })
