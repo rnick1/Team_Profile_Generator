@@ -175,3 +175,22 @@ const init = () => {
 };
 
 init();
+
+/* Note:
+1. User enters node index.js
+2. User enters employee name
+3. User enters employee id
+4. User enters emplyee email
+5. User is asked employee type
+6. User is then asked a question specific to the employee type
+7. User is asked if they would like to add more employees:
+    a. If "yes", then:
+        1. The user goes through the set of questions again.
+    b. If "no", then:
+        1. A card is generated containing all the employee information for each employee entered.
+        2. An HTML file is generated containing each employee card.
+
+Problems:
+1. At the same moment that step 7 is reached, I get my message that the html has been generated, and an html file is created minus the employee card.
+2. Then, if either "yes" or "no" is chosen, the process ends.
+*/
