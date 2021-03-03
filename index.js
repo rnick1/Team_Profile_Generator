@@ -109,9 +109,12 @@ const employeeQuestions = () =>
                 choices: ['Yes', 'No']
             }]).then((response) => {
                 if (response === 'Yes') {
+                    employeeCard()
                     employeeQuestions()
+                    // generateHTML()
                 } else if (response === 'No') {
-                    generateHTML();
+                    employeeCard()
+                    generateHTML()
                 }
             })
         })
@@ -132,7 +135,7 @@ function employeeCard(employee) {
     </div>`
 }
 
-const generateHTML = (employee) =>
+const generateHTML = () =>
     `<!DOCTYPE html>
     <html lang="en">
     
