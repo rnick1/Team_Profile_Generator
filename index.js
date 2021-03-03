@@ -3,6 +3,9 @@ const Employee = require('./lib/employee');
 const Engineer = require('./lib/engineer');
 const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
+const fs = require('fs');
+
+const teamArray = [''];
 
 const employeeQuestions = () =>
     inquirer.prompt([
@@ -45,7 +48,6 @@ const employeeQuestions = () =>
             name: 'employeeType',
             message: 'Please select employee type',
             choices: ['Manager', 'Engineer', 'Intern']
-            // On each line, where there is a prompt, need to return 
         }]).then((response) => {
             if (response.employeeType === 'Manager') {
                 return inquirer.prompt([
@@ -109,51 +111,64 @@ const employeeQuestions = () =>
                 if (response === 'Yes') {
                     employeeQuestions()
                 } else if (response === 'No') {
-                    return
+                    generateHTML();
                 }
             })
         })
-let teamArray = [''];
 
-const generateHTML = (answers) =>
-    `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <title>Document</title>
-      </head>
-      <body>
-        <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <h1 class="display-4">${answers.employeeName}</h1>
-          <ul class="list-group">
-            <li class="list-group-item">${answers.employeeID}</li>
-            <li class="list-group-item">${answers.employeeEmail}</li>
-            <li class="list-group-item">${answers.github}</li>
-            <li class="list-group-item">${answers.school}</li>
-            <li class="list-group-item">${answers.officeNumber}</li>
-          </ul>
+function employeeCard(employee) {
+    return `    
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">${employee.employeeName}</h5>
+                <ul class="card-text">
+                    <li>${employee.employeeID}</li>
+                    <li>${employee.employeeEmail}</li>
+                    <li>${employee.officeNumber || employee.school || employee.gitHubUserName}</li>
+                </ul>
+            </div>
         </div>
-      </div>
-      </body>
-      </html>`;
-
-const init = () => {
-    employeeQuestions()
+    </div>`
 }
 
-// ((answers) => {
-//         try {
-//             // const html = generateHTML(answers);
-//             // fs.writeFileSync('index.html', html);
-//             console.log('Successfully wrote to index.html');
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     });
-// };
-// 49
+const generateHTML = (employee) =>
+    `<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <title>Your Team Profile</title>
+    </head>
+    
+    <body>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 style="text-align: center">Here is Your Team:</h1>
+                <div class="row row-cols-1 row-cols-md-3">    
+
+
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>`;
+
+const init = () => {
+    employeeQuestions().then((employee) => {
+        try {
+            const html = generateHTML(employee);
+            fs.writeFileSync('newHTML.html', html);
+            console.log('Successfully wrote to newHTML.html!');
+        } catch (error) {
+            console.log(error);
+        }
+    });
+};
 
 init();
