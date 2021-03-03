@@ -45,10 +45,10 @@ const employeeQuestions = () =>
             name: 'employeeType',
             message: 'Please select employee type',
             choices: ['Manager', 'Engineer', 'Intern']
-
+            // On each line, where there is a prompt, need to return 
         }]).then((response) => {
             if (response.employeeType === 'Manager') {
-                inquirer.prompt([
+                return inquirer.prompt([
                     {
                         type: 'input',
                         name: 'officeNumber',
@@ -66,7 +66,7 @@ const employeeQuestions = () =>
                     })
 
             } else if (response.employeeType === 'Engineer') {
-                inquirer.prompt([
+                return inquirer.prompt([
                     {
                         type: 'input',
                         name: 'gitHubUserName',
@@ -83,7 +83,7 @@ const employeeQuestions = () =>
                     })
 
             } else if (response.employeeType === 'Intern') {
-                inquirer.prompt([
+                return inquirer.prompt([
                     {
                         type: 'input',
                         name: 'school',
@@ -99,21 +99,21 @@ const employeeQuestions = () =>
                         teamArray.push(intern)
                     })
             }
-
-            let teamArray = [''];
+        }).then(() => {
+            inquirer.prompt([{
+                type: 'list',
+                name: 'continue?',
+                message: 'Would you like to add any more employees?',
+                choices: ['Yes', 'No']
+            }]).then((response) => {
+                if (response === 'Yes') {
+                    employeeQuestions()
+                } else if (response === 'No') {
+                    return
+                }
+            })
         })
-inquirer.prompt([{
-    type: 'list',
-    name: 'continue?',
-    message: 'Would you like to add any more employees?',
-    choices: ['Yes', 'No']
-}]).then((response) => {
-    if (response === true) {
-        employeeQuestions()
-    } else if (response === false) {
-        return
-    }
-})
+let teamArray = [''];
 
 const generateHTML = (answers) =>
     `<!DOCTYPE html>
