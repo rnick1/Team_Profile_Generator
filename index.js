@@ -5,7 +5,7 @@ const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
 const fs = require('fs');
 
-const teamArray = [''];
+const teamArray = [];
 
 const employeeQuestions = () =>
     inquirer.prompt([
@@ -63,7 +63,7 @@ const employeeQuestions = () =>
                         }
 
                     }]).then((managerResponse) => {
-                        const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, response.officeNumber);
+                        const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, managerResponse.officeNumber);
                         teamArray.push(manager)
                     })
 
@@ -80,7 +80,7 @@ const employeeQuestions = () =>
                             return true;
                         }
                     }]).then((engineerResponse) => {
-                        const engineer = new Engineer(response.employeeName, response.employeeID, response.employeeEmail, response.github);
+                        const engineer = new Engineer(response.employeeName, response.employeeID, response.employeeEmail, engineerResponse.gitHubUserName);
                         teamArray.push(engineer)
                     })
 
@@ -97,38 +97,29 @@ const employeeQuestions = () =>
                             return true;
                         }
                     }]).then((internResponse) => {
-                        const intern = new Intern(response.employeeName, response.employeeID, response.employeeEmail, response.school);
+                        const intern = new Intern(response.employeeName, response.employeeID, response.employeeEmail, internResponse.school);
                         teamArray.push(intern)
                     })
             }
-        }).then((answer) => {
-            if (answer.should_continue === 'Yes') {
-                employeeCard()
-                employeeQuestions()
-                // generateHTML()
-            } else if (answer.should_continue === 'No') {
-                employeeCard()
-                generateHTML()
-            }
-        })
+        }).then(() => {
+            inquirer.prompt([{
+                type: 'list',
+                name: 'should_continue',
+                message: 'Would you like to add any more employees?',
+                choices: ['Yes', 'No']
+            }]).then((answer) => {
+                if (answer.should_continue === 'Yes') {
 
-// .then(() => {
-//     inquirer.prompt([{
-//         type: 'list',
-//         name: 'should_continue',
-//         message: 'Would you like to add any more employees?',
-//         choices: ['Yes', 'No']
-//     }]).then((should_continue) => {
-//         if (should_continue === 'Yes') {
-//             employeeCard()
-//             employeeQuestions()
-//             // generateHTML()
-//         } else if (should_continue === 'No') {
-//             employeeCard()
-//             generateHTML()
-//         }
-//     })
-// })
+                    employeeQuestions();
+
+                } else if (answer.should_continue === 'No') {
+                    console.log(teamArray);
+                    for (var i = 0; i < teamArray.length; i++) {
+                        employeeCard();
+                    }
+                }
+            })
+        })
 
 function employeeCard(employee) {
     return `    
@@ -196,12 +187,12 @@ init();
 6. User is then asked a question specific to the employee type
 7. User is asked if they would like to add more employees:
     a. If "yes", then:
-        1. The user goes through the set of questions again.
+        1. The employee information that the user just entered will be added to an teamArray.
+        2. The user goes through the set of questions again.
     b. If "no", then:
         1. A card is generated containing all the employee information for each employee entered.
         2. An HTML file is generated containing each employee card.
 
-Problems:
-1. At the same moment that step 7 is reached, I get my message that the html has been generated, and an html file is created minus the employee card.
-2. Then, if either "yes" or "no" is chosen, the process ends.
+Problem(s):
+1. At the moment that step 7 is reached, an html file is created minus the employee card.
 */
