@@ -5,7 +5,9 @@ const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
 const fs = require('fs');
 
-const teamArray = [];
+const managerArray = [];
+const engineerArray = [];
+const internArray = [];
 
 const employeeQuestions = () =>
     inquirer.prompt([
@@ -64,7 +66,7 @@ const employeeQuestions = () =>
 
                     }]).then((managerResponse) => {
                         const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, managerResponse.officeNumber);
-                        teamArray.push(manager)
+                        managerArray.push(manager)
                     })
 
             } else if (response.employeeType === 'Engineer') {
@@ -81,7 +83,7 @@ const employeeQuestions = () =>
                         }
                     }]).then((engineerResponse) => {
                         const engineer = new Engineer(response.employeeName, response.employeeID, response.employeeEmail, engineerResponse.gitHubUserName);
-                        teamArray.push(engineer)
+                        engineerArray.push(engineer)
                     })
 
             } else if (response.employeeType === 'Intern') {
@@ -98,7 +100,7 @@ const employeeQuestions = () =>
                         }
                     }]).then((internResponse) => {
                         const intern = new Intern(response.employeeName, response.employeeID, response.employeeEmail, internResponse.school);
-                        teamArray.push(intern)
+                        internArray.push(intern)
                     })
             }
         }).then(() => {
@@ -113,35 +115,72 @@ const employeeQuestions = () =>
                     employeeQuestions();
 
                 } else if (answer.should_continue === 'No') {
-                    console.log(teamArray);
+                    console.log(managerArray);
+                    console.log(internArray);
+                    console.log(engineerArray);
+
+                    managerCard();
+                    engineerCard();
+                    internCard();
                 }
             })
         })
 
 /* Note: teamArray stores the objects created by the user inputs (my console.log above shows that it is working.) Now I need to take each object and somehow place it on a card, which will then go on a generated html page. I think I can do it by using either a for-loop or the .forEach method to loop through the array, but I am not sure if I am on the right track... 
 */
-function employeeCard() {
+function managerCard() {
     return `    
     <div class="col mb-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">${employee.employeeName}</h5>
+                <h5 class="card-title">${manager.employeeName}</h5>
                 <ul class="card-text">
-                    <li>${employee.employeeID}</li>
-                    <li>${employee.employeeEmail}</li>
-                    <li>${employee.officeNumber || employee.school || employee.gitHubUserName}</li>
+                    <li>${manager.employeeID}</li>
+                    <li>${manager.employeeEmail}</li>
+                    <li>${manager.officeNumber}</li>
                 </ul>
             </div>
         </div>
     </div>`
 }
 
-teamArray.forEach(employeeCard);
+function engineerCard() {
+    return `    
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">${engineer.employeeName}</h5>
+                <ul class="card-text">
+                    <li>${engineer.employeeID}</li>
+                    <li>${engineer.employeeEmail}</li>
+                    <li>${engineer.gitHubUserName}</li>
+                </ul>
+            </div>
+        </div>
+    </div>`
+}
 
+function internCard() {
+    return `    
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">${intern.employeeName}</h5>
+                <ul class="card-text">
+                    <li>${intern.employeeID}</li>
+                    <li>${intern.employeeEmail}</li>
+                    <li>${intern.school}</li>
+                </ul>
+            </div>
+        </div>
+    </div>`
+}
+
+// teamArray.filter(employeeCard);
 const generateHTML = () => {
-    for (var i = 0; i < teamArray.length; i++) {
-        employeeCard();
-    }
+    // for (var i = 0; i < teamArray.length; i++) {
+    //     employeeCard();
+    // }
     `<!DOCTYPE html>
     <html lang="en">
     
@@ -192,7 +231,7 @@ init();
 6. User is then asked a question specific to the employee type
 7. User is asked if they would like to add more employees:
     a. If "yes", then:
-        1. The employee information that the user just entered will be added to an teamArray.
+        1. The employee information that the user just entered will be added to the relevant array.
         2. The user goes through the set of questions again.
     b. If "no", then:
         1. A card is generated containing all the employee information for each employee entered.
