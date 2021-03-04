@@ -126,7 +126,7 @@ const employeeQuestions = () =>
             })
         })
 
-/* Note: teamArray stores the objects created by the user inputs (my console.log above shows that it is working.) Now I need to take each object and somehow place it on a card, which will then go on a generated html page. I think I can do it by using either a for-loop or the .forEach method to loop through the array, but I am not sure if I am on the right track... 
+/* Note: The manager/engineer/intern Arrays store the objects created by the user inputs (my console.log above seem to show that they work.) Now I need to take each object and somehow place it on a card, which will then go on a generated html page. 
 */
 function managerCard() {
     return `    
