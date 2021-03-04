@@ -111,24 +111,20 @@ const employeeQuestions = () =>
                 choices: ['Yes', 'No']
             }]).then((answer) => {
                 if (answer.should_continue === 'Yes') {
-
                     employeeQuestions();
-
                 } else if (answer.should_continue === 'No') {
                     console.log(managerArray);
                     console.log(internArray);
                     console.log(engineerArray);
 
-                    managerCard();
-                    engineerCard();
-                    internCard();
+                    // TODO: Generate HTML from managerArray, internArray, and engineerArray, and
+                    // then have the HTML combined and saved to a file...
                 }
             })
         })
 
-/* Note: The manager/engineer/intern Arrays store the objects created by the user inputs (my console.log above seem to show that they work.) Now I need to take each object and somehow place it on a card, which will then go on a generated html page. 
-*/
 function managerCard() {
+    // managerArray.forEach(Manager)
     return `    
     <div class="col mb-4">
         <div class="card">
@@ -144,80 +140,37 @@ function managerCard() {
     </div>`
 }
 
-function engineerCard() {
-    return `    
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">${engineer.employeeName}</h5>
-                <ul class="card-text">
-                    <li>${engineer.employeeID}</li>
-                    <li>${engineer.employeeEmail}</li>
-                    <li>${engineer.gitHubUserName}</li>
-                </ul>
-            </div>
-        </div>
-    </div>`
-}
+// const generateHTML = () => {
 
-function internCard() {
-    return `    
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">${intern.employeeName}</h5>
-                <ul class="card-text">
-                    <li>${intern.employeeID}</li>
-                    <li>${intern.employeeEmail}</li>
-                    <li>${intern.school}</li>
-                </ul>
-            </div>
-        </div>
-    </div>`
-}
+//     `<!DOCTYPE html>
+//     <html lang="en">
 
-// teamArray.filter(employeeCard);
-const generateHTML = () => {
-    // for (var i = 0; i < teamArray.length; i++) {
-    //     employeeCard();
-    // }
-    `<!DOCTYPE html>
-    <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <title>Your Team Profile</title>
-    </head>
-    
-    <body>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 style="text-align: center">Here is Your Team:</h1>
-                <div class="row row-cols-1 row-cols-md-3">    
+//     <head>
+//         <meta charset="UTF-8">
+//         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+//             integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+//         <title>Your Team Profile</title>
+//     </head>
+
+//     <body>
+//         <div class="jumbotron jumbotron-fluid">
+//             <div class="container">
+//                 <h1 style="text-align: center">Here is Your Team:</h1>
+//                 <div class="row row-cols-1 row-cols-md-3">    
 
 
 
-                </div>
-            </div>
-        </div>
-    </body>
+//                 </div>
+//             </div>
+//         </div>
+//     </body>
 
-</html>`;
-}
+// </html>`;
+// }
 
 const init = () => {
-    employeeQuestions().then((employee) => {
-        try {
-            const html = generateHTML(employee);
-            fs.writeFileSync('newHTML.html', html);
-            console.log('Successfully wrote to newHTML.html!');
-        } catch (error) {
-            console.log(error);
-        }
-    });
+    employeeQuestions();
 };
 
 init();
@@ -236,7 +189,4 @@ init();
     b. If "no", then:
         1. A card is generated containing all the employee information for each employee entered.
         2. An HTML file is generated containing each employee card.
-
-Problem(s):
-1. At the moment that step 7 is reached, an html file is created minus the employee card.
 */
