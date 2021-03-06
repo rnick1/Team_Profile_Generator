@@ -42,7 +42,6 @@ const initialQuestions = [
             }
             return true;
         },
-
     },
     {
         type: 'list',
@@ -51,9 +50,7 @@ const initialQuestions = [
         choices: ['Manager', 'Engineer', 'Intern']
     }
 ]
-
 // Functions:
-
 const specificEmployeeTypes = (response) => {
     if (response.employeeType === 'Manager') {
         return inquirer.prompt([
@@ -67,12 +64,10 @@ const specificEmployeeTypes = (response) => {
                     }
                     return true;
                 }
-
             }]).then((managerResponse) => {
                 const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, managerResponse.officeNumber);
                 managerArray.push(manager)
             })
-
     } else if (response.employeeType === 'Engineer') {
         return inquirer.prompt([
             {
@@ -89,7 +84,6 @@ const specificEmployeeTypes = (response) => {
                 const engineer = new Engineer(response.employeeName, response.employeeID, response.employeeEmail, engineerResponse.gitHubUserName);
                 engineerArray.push(engineer)
             })
-
     } else if (response.employeeType === 'Intern') {
         return inquirer.prompt([
             {
@@ -108,9 +102,7 @@ const specificEmployeeTypes = (response) => {
             })
     }
 }
-
 const getManagerCard = function (managerArray) {
-
     const managerCards = managerArray.map(m => {
         return `
         <div class="col mb-4">
@@ -128,9 +120,9 @@ const getManagerCard = function (managerArray) {
     })
     console.log(managerCards)
 }
-
 const getEngineerCard = function (engineerArray) {
-    return `
+    const engineerCards = engineerArray.map(m => {
+        return `
     <div class="col mb-4">
     <div class="card">
         <div class="card-body">
@@ -143,10 +135,12 @@ const getEngineerCard = function (engineerArray) {
         </div>
     </div>
 </div>`
+    })
+    console.log(engineerCards)
 }
-
 const getInternCard = function (internArray) {
-    return `
+    const internCards = internArray.map(m => {
+        return `
     <div class="col mb-4">
     <div class="card">
         <div class="card-body">
@@ -159,6 +153,8 @@ const getInternCard = function (internArray) {
         </div>
     </div>
 </div>`
+    })
+    console.log(internCards)
 }
 
 const writeToFile = () => {
@@ -193,7 +189,6 @@ const writeToFile = () => {
                 </div>
             </div>
         </body>
-
     </html>`
     }
 }
@@ -205,17 +200,16 @@ const yesNoQuestion = () => {
         message: 'Would you like to add any more employees?',
         choices: ['Yes', 'No']
     }])
+
 }
 
 const employeeQuestions = () => {
     // inquirer.prompt(initialQuestions)
-    // .then(specificEmployeeTypes)
-    // .then(yesNoQuestion)
-    // .then((answer) => {
+    //     .then(specificEmployeeTypes)
+    //     .then(yesNoQuestion)
+    //     .then((answer) => {
     managerArray.push(new Manager('Nick', '1', 'rnick', '1'))
-
     engineerArray.push(new Engineer('Nick', '1', 'rnick', 'github'))
-
     internArray.push(new Intern('Nick', '1', 'rnick', 'UW'))
     // if (answer.should_continue === 'Yes') {
     //     employeeQuestions();
@@ -251,7 +245,6 @@ Put breakpoints in writeToFile and look at all the variables in the watch to see
         1. A card is generated containing all the employee information for each employee entered.
         2. An HTML file is generated containing each employee card.
 */
-
 
 // const engineerHTMLString = engineerArr.map(Engineer => 
 //     `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
