@@ -14,34 +14,16 @@ const initialQuestions = [
         type: 'input',
         name: 'employeeName',
         message: 'Please enter the employee\'s name.',
-        validate: function (text) {
-            if (text.length == 0) {
-                return 'Please enter the employee\'s name.';
-            }
-            return true;
-        },
     },
     {
         type: 'input',
         name: 'employeeID',
         message: 'Please enter the employee\'s ID',
-        validate: function (text) {
-            if (text.length == 0) {
-                return 'Please enter the employee\'s ID';
-            }
-            return true;
-        },
     },
     {
         type: 'input',
         name: 'employeeEmail',
         message: 'Please enter the employee\'s email address',
-        validate: function (text) {
-            if (text.length == 0) {
-                return 'Please enter the employee\'s email address';
-            }
-            return true;
-        },
     },
     {
         type: 'list',
@@ -58,12 +40,6 @@ const specificEmployeeTypes = (response) => {
                 type: 'input',
                 name: 'officeNumber',
                 message: 'Please enter the manager\'s office number',
-                validate: function (text) {
-                    if (text.length == 0) {
-                        return 'Please enter the manager\'s office number';
-                    }
-                    return true;
-                }
             }]).then((managerResponse) => {
                 const manager = new Manager(response.employeeName, response.employeeID, response.employeeEmail, managerResponse.officeNumber);
                 managerArray.push(manager)
@@ -74,12 +50,6 @@ const specificEmployeeTypes = (response) => {
                 type: 'input',
                 name: 'gitHubUserName',
                 message: 'Please enter the engineer\'s GitHub username.',
-                validate: function (text) {
-                    if (text.length == 0) {
-                        return 'Please enter the engineer\'s GitHub username.';
-                    }
-                    return true;
-                }
             }]).then((engineerResponse) => {
                 const engineer = new Engineer(response.employeeName, response.employeeID, response.employeeEmail, engineerResponse.gitHubUserName);
                 engineerArray.push(engineer)
@@ -89,13 +59,7 @@ const specificEmployeeTypes = (response) => {
             {
                 type: 'input',
                 name: 'school',
-                message: 'Please enter the intern\'s school.',
-                validate: function (text) {
-                    if (text.length == 0) {
-                        return 'Please enter the intern\'s school.';
-                    }
-                    return true;
-                }
+                message: 'Please enter the intern\'s school.'
             }]).then((internResponse) => {
                 const intern = new Intern(response.employeeName, response.employeeID, response.employeeEmail, internResponse.school);
                 internArray.push(intern)
@@ -103,67 +67,69 @@ const specificEmployeeTypes = (response) => {
     }
 }
 const getManagerCard = function (managerArray) {
-    const managerCards = managerArray.map(manager => {
+    const managerCards = managerArray.map(m => {
         return `
         <div class="col mb-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">${manager.name}</h5>
+                <h5 class="card-title">${managerArray[0].name}</h5>
                 <ul class="card-text">
-                    <li>Employee ID: ${manager.id}</li>
-                    <li>Email: ${manager.email}</li>
-                    <li>Office number: ${manager.officeNumber}</li>
+                    <li>Employee ID: ${managerArray[0].id}</li>
+                    <li>Email: ${managerArray[0].email}</li>
+                    <li>Office number: ${managerArray[0].officeNumber}</li>
                 </ul>
             </div>
         </div>
     </div>`
     })
     console.log(managerCards)
-    return (managerCards)
-
 }
 const getEngineerCard = function (engineerArray) {
-    const engineerCards = engineerArray.map(engineer => {
+    const engineerCards = engineerArray.map(m => {
         return `
     <div class="col mb-4">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">${engineer.name}</h5>
+            <h5 class="card-title">${engineerArray[0].name}</h5>
             <ul class="card-text">
-                <li>Employee ID: ${engineer.id}</li>
-                <li>Employee email: ${engineer.email}</li>
-                <li>Github username: ${engineer.github}</li>
+                <li>Employee ID: ${engineerArray[0].id}</li>
+                <li>Employee email: ${engineerArray[0].email}</li>
+                <li>Github username: ${engineerArray[0].github}</li>
             </ul>
         </div>
     </div>
 </div>`
     })
     console.log(engineerCards)
-    return (engineerCards)
 }
 const getInternCard = function (internArray) {
-    const internCards = internArray.map(intern => {
+    const internCards = internArray.map(m => {
         return `
     <div class="col mb-4">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">${intern.name}</h5>
+            <h5 class="card-title">${internArray[0].name}</h5>
             <ul class="card-text">
-                <li>Employee ID:${intern.id}</li>
-                <li> Employee email: ${intern.email}</li>
-                <li>School attended: ${intern.school}</li>
+                <li>Employee ID:${internArray[0].id}</li>
+                <li> Employee email: ${internArray[0].email}</li>
+                <li>School attended: ${internArray[0].school}</li>
             </ul>
         </div>
     </div>
 </div>`
     })
     console.log(internCards)
-    return (internCards)
-
 }
 
 const writeToFile = () => {
-    const createdHTML = `
+    {
+        console.log(managerArray.join(""));
+        console.log(internArray);
+        console.log(engineerArray);
+
+        // const getManagerCard = arr.map(employee => employee.getManagerCard()).join("");
+
+        return `
         <!DOCTYPE html>
         <html lang="en">
 
@@ -188,13 +154,7 @@ const writeToFile = () => {
             </div>
         </body>
     </html>`
-    fs.writeFile('./dist/index.html', createdHTML, function (err) {
-        if (err)
-            console.log(err);
-        else
-            console.log('Write operation complete.');
-    });
-
+    }
 }
 
 const yesNoQuestion = () => {
@@ -208,16 +168,21 @@ const yesNoQuestion = () => {
 }
 
 const employeeQuestions = () => {
-    inquirer.prompt(initialQuestions)
-        .then(specificEmployeeTypes)
-        .then(yesNoQuestion)
-        .then((answer) => {
-            if (answer.should_continue === 'Yes') {
-                return employeeQuestions();
-            } else if (answer.should_continue === 'No') {
-                return writeToFile();
-            }
-        })
+    // inquirer.prompt(initialQuestions)
+    //     .then(specificEmployeeTypes)
+    //     .then(yesNoQuestion)
+    //     .then((answer) => {
+    managerArray.push(new Manager('Nick', '1', 'rnick', '1'))
+    engineerArray.push(new Engineer('Nick', '1', 'rnick', 'github'))
+    internArray.push(new Intern('Nick', '1', 'rnick', 'UW'))
+    // if (answer.should_continue === 'Yes') {
+    //     employeeQuestions();
+    // } else if (answer.should_continue === 'No') {
+    //     writeToFile();
+    // }
+    writeToFile();
+
+    // })
 }
 
 const init = () => {
@@ -225,3 +190,35 @@ const init = () => {
 };
 
 init();
+
+/* Note:
+
+Put breakpoints in writeToFile and look at all the variables in the watch to see what is undefined, because the error says "Cannot find name of undefined"
+
+1. User enters node index.js
+2. User enters employee name
+3. User enters employee id
+4. User enters emplyee email
+5. User is asked employee type
+6. User is then asked a question specific to the employee type
+7. User is asked if they would like to add more employees:
+    a. If "yes", then:
+        1. The employee information that the user just entered will be added to the relevant array.
+        2. The user goes through the set of questions again.
+    b. If "no", then:
+        1. A card is generated containing all the employee information for each employee entered.
+        2. An HTML file is generated containing each employee card.
+*/
+
+// const engineerHTMLString = engineerArr.map(Engineer => 
+//     `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
+//     <div class="card-header">
+//       ${Engineer.getName()} <br>
+//       <i class="fas fa-glasses mr-2"></i>  Engineer
+//     </div>
+//     <ul class="list-group list-group-flush" style="color: black;" >
+//       <li class="list-group-item">ID:${Engineer.getId()}</li>
+//       <li class="list-group-item">Email: <a href="mailto: ">${Engineer.getEmail()}</a></li>
+//       <li class="list-group-item">GitHub:${Engineer.getGithub()}</li>
+//     </ul>
+// </div>`
