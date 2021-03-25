@@ -27,6 +27,6 @@ None
 n/a
 
 ### **Instructional Video:**
-[Link](https://drive.google.com/file/d/1iLEZnIIDK4pDNF2rCx2xaGnKaczahgNz/view?usp=sharing)
+[Link](https://drive.google.com/file/d/14GC_QecTJX8PyT3WCnizeprhnhYHMnGN/view?usp=sharing)
 
 ### If you have any questions, please contact Nick Rider at: rnick0260@gmail.com
